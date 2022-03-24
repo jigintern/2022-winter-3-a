@@ -4,10 +4,23 @@ import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
 import { Todo } from "./todo.ts";
 
 
+import { Client } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
+
+const client = new Client("postgres://postgres:lockin0624!@db.vxlotgascdtznyrhpjyw.supabase.co:6543/postgres");
+await client.connect();
+
+
+const object_result = await client.queryObject("SELECT * FROM TODOS");
+console.log(object_result.rows); // [{id: 1, name: 'Carlos'}, {id: 2, name: 'John'}, ...]
+
+await client.end();
+
+
 // ToDo の API は Todo クラスにまとめてある
 const todo = new Todo();
 
 console.log("Listening on http://localhost:8000");
+
 serve((req) => {
     const url = new URL(req.url);
     const pathname = url.pathname;
