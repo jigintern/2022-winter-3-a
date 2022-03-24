@@ -3,6 +3,7 @@ import { serveDir } from "https://deno.land/std@0.127.0/http/file_server.ts";
 import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
 import { Todo } from "./todo.ts";
 
+
 // ToDo の API は Todo クラスにまとめてある
 const todo = new Todo();
 
@@ -30,7 +31,6 @@ serve((req) => {
                 return todo.apiDelete(req);
         }
     }
-
     // pathname に対応する static フォルダのファイルを返す（いわゆるファイルサーバ機能）
     // / → static/index.html
     // /hoge → static/hoge/index.html
@@ -67,7 +67,12 @@ const apiFourArithmeticOperations = (req: Request) => {
         multiplication = x * y;
         division = x / y;
     }
-    return createJsonResponse({ x, y, addition, subtraction, multiplication, division });
+    return createJsonResponse({    
+        "user": "太郎",
+        "age": 23,
+        "gender": "男"
+    }
+);
 }
 
 // URL のクエリパラメータをパースする
