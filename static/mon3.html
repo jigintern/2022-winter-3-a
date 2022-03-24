@@ -13,12 +13,13 @@
       緊急地震速報（きんきゅうじしんそくほう）が
       ながれてきたとき、物が落ちてこない、倒れてこない、移動してこない
       ところで、ゆれがおさまるまで様子をみる。</h1>
-      <form method="GET" action="/server.ts">
-    <div class="radio" style="text-align:center">
-        <input type="radio" name="Q3" value="true">正しい<br>
-        <input type="radio" name="Q3" value="false">正しくない<br>
-        <input type="button" value="決定" onclick="ans()" />
-    </div>
+      <form method="GET" action="/api/answer">
+        <div class="radio" style="text-align:center">
+          <input type="hidden" name="id" value="3">
+          <input type="radio" name="answer" value="false">正しい<br>
+          <input type="radio" name="answer" value="true">正しくない<br>
+          <input type="submit" value="決定">
+        </div>
   </form>
 </body>
 </html>
