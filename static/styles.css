@@ -14,12 +14,8 @@ div.container img {
   float: left;
   margin: 0 30px 30px 0;
   text-align: center;
-  }
-  img {
-    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
-    width:  270px;       /* ※縦横を同値に */
-    height: 270px;       /* ※縦横を同値に */
-}
-img:hover {
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  width:  270px;       /* ※縦横を同値に */
+  height: 270px;       /* ※縦横を同値に */
   opacity: 0.75;
-}
+  }
