@@ -60,14 +60,14 @@ function apiTime(req: Request) {
 async function Ans(req: Request) {
     const params = parseSearchParams(new URL(req.url));
     const id = params.id;
-    const answer = params.answer;
     const answers = await getData();
-    const ans = answers.find((obj) => obj.id === id);
-    if(params.answer === ans.answer){
+    const ans: any = answers.rows.find((obj: any) => obj.id === id);
+    if(params.answer === (ans.answer === 'True')){
         return Response.redirect('https://jigintern-2022-winter-3-a.deno.dev/ans'+id+'.html');
     }
-    else 
-    return Response.redirect('https://jigintern-2022-winter-3-a.deno.dev/false.html');
+    else{ 
+        return Response.redirect('https://jigintern-2022-winter-3-a.deno.dev/false.html');
+    }
 }
 async function getData() { 
     const client = new Client("postgres://postgres:lockin0624!@db.vxlotgascdtznyrhpjyw.supabase.co:6543/postgres");
