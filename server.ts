@@ -6,14 +6,6 @@ import { Todo } from "./todo.ts";
 
 import { Client } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
 
-const client = new Client("postgres://postgres:lockin0624!@db.vxlotgascdtznyrhpjyw.supabase.co:6543/postgres");
-await client.connect();
-
-
-const object_result = await client.queryObject("SELECT * FROM TODOS");
-console.log(object_result.rows); // [{id: 1, name: 'Carlos'}, {id: 2, name: 'John'}, ...]
-
-await client.end();
 
 
 // ToDo の API は Todo クラスにまとめてある
@@ -42,7 +34,9 @@ serve((req) => {
                 return todo.apiAdd(req);
             case "/api/todo/delete":
                 return todo.apiDelete(req);
-        }
+            case "/api/answer":
+                return Ans(req);
+            }
     }
     // pathname に対応する static フォルダのファイルを返す（いわゆるファイルサーバ機能）
     // / → static/index.html
@@ -61,6 +55,30 @@ serve((req) => {
 // 現在の日時を返す API
 function apiTime(req: Request) {
     return new Response(format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+}
+
+async function Ans(req: Request) {
+    const params = parseSearchParams(new URL(req.url));
+    const id = params.id;
+    const answer = params.answer;
+    const answers = await getData();
+    const ans = answers.find((obj) => obj.id === id);
+    if(params.answer === ans.answer){
+        return Response.redirect('https://jigintern-2022-winter-3-a.deno.dev/ans'+id+'.html');
+    }
+    else 
+    return Response.redirect('https://jigintern-2022-winter-3-a.deno.dev/false.html');
+}
+async function getData() { 
+    const client = new Client("postgres://postgres:lockin0624!@db.vxlotgascdtznyrhpjyw.supabase.co:6543/postgres");
+    await client.connect();
+    
+    
+    const object_result = await client.queryObject("SELECT * FROM TODOS");
+    console.log(object_result.rows); // [{id: 1, name: 'Carlos'}, {id: 2, name: 'John'}, ...]
+    
+    await client.end();
+    return object_result;
 }
 
 // アロー関数を使った関数宣言
