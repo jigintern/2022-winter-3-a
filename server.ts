@@ -35,6 +35,8 @@ serve((req) => {
     const url = new URL(req.url);
     const pathname = url.pathname;
 
+    console.log("Hello");
+
     console.log("Request:", req.method, pathname);
 
     // /api/ で始まる場合、API サーバっぽく処理して返す
