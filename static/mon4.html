@@ -10,12 +10,13 @@
     <div class="ansimg" style="text-align:center"><img src="ans4.png" alt="問題１"></div>
 
     <h1 style="text-align:center">Q_ゆれがおさまったら,安心してよい。</h1>
-    <form method="GET" action="/server.ts">
-    <div class="radio" style="text-align:center">
-        <input type="radio" name="Q4" value="false">正しい<br>
-        <input type="radio" name="Q4" value="true">正しくない<br>
-        <input type="button" value="決定" onclick="ans()" />
-    </div>
-  </form>
+    <form method="GET" action="/api/answer">
+      <div class="radio" style="text-align:center">
+        <input type="hidden" name="id" value="4">
+        <input type="radio" name="answer" value="false">正しい<br>
+        <input type="radio" name="answer" value="true">正しくない<br>
+        <input type="submit" value="決定">
+      </div>
+</form>
 </body>
 </html>
