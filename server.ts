@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.127.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.127.0/http/file_server.ts";
+import * as postgres from "https://deno.land/x/postgres@v0.14.2/mod.ts";
 import { format } from "https://deno.land/std@0.127.0/datetime/mod.ts";
 import { Todo } from "./todo.ts";
 
@@ -11,7 +12,19 @@ import { Client } from "https://deno.land/x/postgres@v0.15.0/mod.ts";
 // ToDo の API は Todo クラスにまとめてある
 const todo = new Todo();
 
+
+
+// Get the connection string from the environment variable "DATABASE_URL"
+const databaseUrl = "postgres://postgres:lockin0624!@db.vxlotgascdtznyrhpjyw.supabase.co:6543/postgres";
+
+// Create a database pool with three connections that are lazily established
+const pool = new postgres.Pool(databaseUrl, 3, true);
+
+// Connect to the database
+const connection = await pool.connect();
+
 console.log("Listening on http://localhost:8000");
+
 
 serve((req) => {
     const url = new URL(req.url);
