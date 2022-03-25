@@ -1,5 +1,5 @@
 import { fetchJSON, fetchText } from "./fetch.js";
-
+/**
 timeButton.onclick = async () => {
   // 現在の日時を返す API にアクセスする
   // サーバからのレスポンスはただのテキスト形式
@@ -70,3 +70,4 @@ window.onload = (event) => {
   // ページが読み込まれたら最新の ToDo の一覧を表示する
   displayTodoList();
 };
+ */
