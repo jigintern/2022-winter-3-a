@@ -21,3 +21,7 @@ div.container img {
 div.container img:hover {
   opacity: 0.75;
 }
+div.mon h1 {
+  padding: 1rem 2rem;
+  border: 6px double #000;
+}
