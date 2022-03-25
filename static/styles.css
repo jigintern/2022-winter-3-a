@@ -35,7 +35,7 @@ div.map h1 {
   background: #fa4141;
 }
 
-div .map h2:before {
+div.map h2:before {
   position: absolute;
   top: calc(50% - 7px);
   left: 10px;
@@ -44,4 +44,7 @@ div .map h2:before {
   content: '';
   border-radius: 50%;
   background: #fff;
+}
+div.map h2:hover {
+  opacity: 0.75;
 }
