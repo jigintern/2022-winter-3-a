@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,14 +9,15 @@
     <script type="module" src="main.js">alert("問題1に挑戦です")</script> 
     <h1 style="text-align:center"> 防災のおべんきょうべや[問題１]</h1>
     <div class="ansimg" style="text-align:center"><img src="ans1.png" alt="問題１"></div>
-
-    <h1 style="text-align:center">Q_外で地震が起きたので、ブロック塀の近くに移動した</h1>
-    <form method="GET" action="/server.ts">
-    <div class="radio" style="text-align:center">
-        <input type="radio" name="Q1" value="false">正しい<br>
-        <input type="radio" name="Q1" value="true">正しくない<br>
-        <input type="button" value="決定" onclick="ans()" />
-    </div>
-  </form>
+    <div class="mon"><h1 style="text-align:center">Q_1　外で地震が起きたら?</h1></div>
+    <h2 style="text-align:center">外で地震が起きたので、ブロック塀の近くに移動した</h2>
+    <form method="GET" action="/api/answer">
+      <div class="radio" style="text-align:center">
+        <input type="hidden" name="id" value="1">
+        <input type="radio" name="answer" value="true">正しい<br>
+        <input type="radio" name="answer" value="false">正しくない<br>
+        <input type="submit" value="決定">
+      </div>
+</form>
 </body>
 </html>
