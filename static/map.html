@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+#map{
+  height: 100vh;
+}
+html, body {
+  height  : 100%;
+  margin  : 0;
+  padding : 0;
+}
+    </style>
+  </head>
+  <body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-7">
+        <div id="map"></div>    
+      </div>
+      <div class="col-5">
+        <table id="resultTable" class="table table-bordered table-sm">
+          <thead>
+          <tr class="text-center table-secondary">
+            <th>地域名</th>
+            <th>時間</th>
+            <th>緯度経度</th>
+            <th>震度</th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+
+      function initMap() {
+
+        fetch("https://www.jma.go.jp/bosai/quake/data/list.json")
+        .then(response => response.json())
+        .then(json => {
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom      : 5,
+            center    : {lat: 35.6575136, lng: 139.7411599},
+            mapTypeId : 'terrain'
+          });
+
+          console.log( json );
+
+          var resultTable = $("#resultTable tbody");
+          var resultHtml  = "";
+          var col_arr     = [
+            //'acd',
+            'anm',
+            'at',
+            'cod',
+            //'ctt',
+            //'eid',
+            //'en_anm',
+            //'en_ttl',
+            //'ift',
+            //'int',
+            //'json',
+            //'mag',
+            'maxi',
+            //'rdt',
+            //'ser',
+            //'ttl',
+          ];
+          var len         = json.length;
+          for( var i = 0 ; i < len ; i++ ){
+
+            //
+            resultHtml += "<tr>";  
+            $.each( col_arr , function( index , col ){
+              resultHtml += "<td class=text-center>";
+              resultHtml += json[ i ][ col ];
+              resultHtml += "</td>";
+            });
+            resultHtml += "</tr>";  
+
+            //
+            var latlng_org = json[ i ].cod;
+
+            // check length
+            if( latlng_org.split("-").length === 1 ){
+              continue;
+            }
+
+            var latlng_arr = latlng_org.split("-")[0].split("+");
+
+            // check length
+            if( latlng_arr.length === 1  ){
+              continue;
+            }
+
+            // create circle center point
+            var latlng     = new google.maps.LatLng( latlng_arr[1] , latlng_arr[2] );
+
+            // create circle radius from maxi
+            var radius = 10000  * json[ i ].maxi
+
+            // create circle into map
+            new google.maps.Circle({
+              map           : map       ,
+              center        : latlng    ,
+              radius        : radius    ,
+              strokeColor   : '#FF0000' ,
+              strokeOpacity : 0.8       ,
+              strokeWeight  : 1         ,
+              fillColor     : '#FF0000' ,
+              fillOpacity   : 0.30      ,
+            });
+
+          }
+
+          //
+          resultTable.append(resultHtml);
+
+        })
+
+      }
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script async defer src="//maps.googleapis.com/maps/api/js?key=AIzaSyBj4v-mKbF3b0JD3ks3Ox_ciSq23EkRvj8&callback=initMap"></script>
+  </body>
+</html>
